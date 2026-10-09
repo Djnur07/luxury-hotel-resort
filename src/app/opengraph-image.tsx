@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import { ImageResponse } from "next/og";
 
 export const alt = "Serene Stay, a quiet boutique hotel in Bali";
