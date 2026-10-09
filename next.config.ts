@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  cacheComponents: !isGitHubPages,
+  partialPrefetching: !isGitHubPages,
 
   ...(isGitHubPages && {
     output: "export",
