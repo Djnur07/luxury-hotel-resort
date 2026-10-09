@@ -33,9 +33,9 @@ export default function BookingBar() {
 
   const label = "flex min-w-0 flex-col gap-1.5 md:gap-2 text-[11px] md:text-xs uppercase tracking-[0.08em] md:tracking-[0.12em] text-teak-dark";
   const field =
-    "w-full min-w-0 rounded-lg border border-teak/40 bg-white h-12 md:h-[58px] px-1.5 md:px-2.5 xl:px-4 text-[13px] md:text-[15px] xl:text-sm max-md:[&::-webkit-calendar-picker-indicator]:hidden normal-case tracking-normal text-ink focus:outline-none focus:border-teak block max-w-full appearance-none data-[empty=true]:text-transparent [&::-webkit-date-and-time-value]:text-left";
+    "w-full min-w-0 rounded-lg border border-teak/40 bg-white h-12 md:h-[58px] px-1.5 md:px-2.5 xl:px-4 text-center text-[15px] md:text-[17px] xl:text-sm max-md:[&::-webkit-calendar-picker-indicator]:hidden normal-case tracking-normal text-ink focus:outline-none focus:border-teak block max-w-full appearance-none data-[empty=true]:text-transparent [&::-webkit-date-and-time-value]:text-center";
   const hint =
-    "pointer-events-none absolute inset-y-0 left-1.5 md:left-2.5 xl:left-4 flex items-center whitespace-nowrap text-[13px] md:text-[15px] xl:text-sm normal-case tracking-normal text-ink/40";
+    "pointer-events-none absolute inset-0 flex items-center justify-center whitespace-nowrap text-[15px] md:text-[17px] xl:text-sm normal-case tracking-normal text-ink/40";
   const guestWord =
     lang === "id" ? "tamu" : guests === 1 ? "guest" : "guests";
 
