@@ -5,6 +5,7 @@ import Price from "@/components/Price";
 import CurrencyToggle from "@/components/CurrencyToggle";
 import T from "@/components/T";
 import HideWhatsApp from "@/components/HideWhatsApp";
+import RoomWhatsAppButton from "@/components/RoomWhatsAppButton";
 import { facilitiesId } from "@/lib/facilities-id";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -12,7 +13,6 @@ import type { Room } from "@/components/RoomCard";
 import kamar from "@/data/kamar.json";
 
 const rooms = kamar as Room[];
-const WA_NUMBER = "6281234567890";
 
 type Params = Promise<{ slug: string }>;
 
@@ -59,7 +59,6 @@ async function RoomDetail({ params }: { params: Params }) {
 
   const size = room.luas > 0 ? `${room.luas} m²` : "[Size] m²";
   const unitId = room.satuan === "night" ? "malam" : room.satuan;
-  const waText = `Hello, I would like to book the ${room.nama}.`;
 
   return (
     <div className="mt-3 grid gap-4 md:mt-8 md:gap-8 xl:gap-12 xl:grid-cols-2 items-start">
@@ -111,14 +110,10 @@ async function RoomDetail({ params }: { params: Params }) {
         </ul>
 
         <div className="hidden md:block mt-8 h-px bg-teak/30" />
-        <a
-          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <RoomWhatsAppButton
+          room={room.nama}
           className="mt-4 md:mt-6 inline-block whitespace-nowrap rounded-full bg-olive px-6 md:px-8 py-2 md:py-4 text-[15px] md:text-sm font-semibold text-linen hover:bg-ink transition-colors"
-        >
-          <T en="Book this room via WhatsApp" id="Pesan kamar ini via WhatsApp" />
-        </a>
+        />
       </div>
     </div>
   );

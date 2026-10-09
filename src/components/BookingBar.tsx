@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useLang } from "@/lib/language";
 
 const WA_NUMBER = "6281234567890";
@@ -9,6 +9,11 @@ export default function BookingBar() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("booking", JSON.stringify({ checkIn, checkOut, guests }));
+    } catch {}
+  }, [checkIn, checkOut, guests]);
   const today = useSyncExternalStore(
     () => () => {},
     () => new Date().toLocaleDateString("en-CA"),
