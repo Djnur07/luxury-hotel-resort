@@ -30,8 +30,7 @@ jobs:
 
       - name: Fix asset paths
         run: |
-          find out -type f -name "*.html" -exec sed -i 's#/images/#/luxury-hotel-resort/images/#g' {} +
-          find out -type f -name "*.html" -exec sed -i 's#/Video/#/luxury-hotel-resort/Video/#g' {} +
+          find out -type f -exec sed -i 's#/images/#/luxury-hotel-resort/images/#g; s#/Video/#/luxury-hotel-resort/Video/#g' {} +
 
       - uses: actions/configure-pages@v5
 
