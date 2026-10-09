@@ -1,0 +1,125 @@
+import { Suspense } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Price from "@/components/Price";
+import CurrencyToggle from "@/components/CurrencyToggle";
+import T from "@/components/T";
+import HideWhatsApp from "@/components/HideWhatsApp";
+import { facilitiesId } from "@/lib/facilities-id";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import type { Room } from "@/components/RoomCard";
+import kamar from "@/data/kamar.json";
+
+const rooms = kamar as Room[];
+const WA_NUMBER = "6281234567890";
+
+type Params = Promise<{ slug: string }>;
+
+export function generateStaticParams() {
+  return rooms.map((room) => ({ slug: room.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const room = rooms.find((r) => r.slug === slug);
+  return { title: room ? `${room.nama} · Serene Stay` : "Serene Stay" };
+}
+
+export default function RoomPage({ params }: { params: Params }) {
+  return (
+    <main className="px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-24">
+      <HideWhatsApp />
+      <div className="mx-auto max-w-6xl">
+        <Link href="/#rooms" className="text-xs text-teak-dark hover:text-ink">
+          &larr; <T en="All rooms" id="Semua kamar" />
+        </Link>
+        <Suspense
+          fallback={
+            <div className="mt-8 grid gap-12 md:grid-cols-2">
+              <div className="aspect-[4/3] rounded-2xl bg-stone" />
+            </div>
+          }
+        >
+          <RoomDetail params={params} />
+        </Suspense>
+      </div>
+    </main>
+  );
+}
+
+async function RoomDetail({ params }: { params: Params }) {
+  const { slug } = await params;
+  const room = rooms.find((r) => r.slug === slug);
+  if (!room) notFound();
+
+  const size = room.luas > 0 ? `${room.luas} m²` : "[Size] m²";
+  const unitId = room.satuan === "night" ? "malam" : room.satuan;
+  const waText = `Hello, I would like to book the ${room.nama}.`;
+
+  return (
+    <div className="mt-3 grid gap-4 md:mt-8 md:gap-8 xl:gap-12 xl:grid-cols-2 items-start">
+      <div className="relative h-[clamp(100px,18svh,220px)] max-md:[@media(max-height:700px)]:h-[15svh] md:h-auto md:aspect-[16/9] xl:aspect-[4/3] overflow-hidden rounded-2xl">
+        <Image
+          src={room.foto}
+          alt={room.nama}
+          fill
+          priority
+          sizes="(min-width: 1280px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs uppercase tracking-[0.2em] text-teak-dark">
+            <T en="Room" id="Kamar" />
+          </p>
+          <CurrencyToggle className="flex w-fit md:hidden" />
+        </div>
+        <h1 className="font-serif text-3xl md:text-5xl leading-tight mt-1 md:mt-3">
+          {room.nama}
+        </h1>
+        <p className="mt-1 md:mt-4 text-xs md:text-sm text-teak-dark">
+          {room.tamu} <T en="guests" id="tamu" /> &middot; {size}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 md:mt-8 md:block">
+          <p className="text-xs md:text-sm">
+            <span className="text-xl md:text-2xl font-semibold"><Price idr={room.harga} /></span> /{" "}
+            <T en={room.satuan} id={unitId} />
+          </p>
+          <CurrencyToggle className="hidden md:flex w-fit md:mt-4" />
+        </div>
+
+        <div className="hidden md:block mt-8 h-px bg-teak/30" />
+        <h2 className="mt-4 md:mt-8 text-xs uppercase tracking-[0.2em] text-teak-dark">
+          <T en="In this room" id="Di kamar ini" />
+        </h2>
+        <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5 text-[15px] leading-snug md:mt-4 md:leading-normal md:gap-x-8 md:gap-y-2 md:text-base">
+          {room.fasilitas.map((f) => (
+            <li
+              key={f}
+            >
+              <T en={f} id={facilitiesId[f] ?? f} />
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden md:block mt-8 h-px bg-teak/30" />
+        <a
+          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 md:mt-6 inline-block whitespace-nowrap rounded-full bg-olive px-6 md:px-8 py-2 md:py-4 text-[15px] md:text-sm font-semibold text-linen hover:bg-ink transition-colors"
+        >
+          <T en="Book this room via WhatsApp" id="Pesan kamar ini via WhatsApp" />
+        </a>
+      </div>
+    </div>
+  );
+}

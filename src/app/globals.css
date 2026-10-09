@@ -24,3 +24,13 @@ body {
   color: var(--color-ink);
   font-weight: 500;
 }
+
+html {
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

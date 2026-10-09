@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "deluxe",
+    "nama": "Deluxe Room",
+    "harga": 1450000,
+    "satuan": "night",
+    "tamu": 2,
+    "luas": 32,
+    "fasilitas": [
+      "King bed",
+      "Garden view",
+      "Rain shower",
+      "Air conditioning",
+      "Free Wi-Fi",
+      "43\" smart TV",
+      "Coffee & tea maker",
+      "Minibar",
+      "In-room safe",
+      "Hairdryer"
+    ],
+    "foto": "/images/kamar-deluxe.jpg"
+  },
+  {
+    "slug": "ocean-suite",
+    "nama": "Ocean Suite",
+    "harga": 2650000,
+    "satuan": "night",
+    "tamu": 2,
+    "luas": 58,
+    "fasilitas": [
+      "King bed",
+      "Sea view",
+      "Work desk",
+      "Private balcony",
+      "Separate living area",
+      "Bathtub & rain shower",
+      "Espresso machine",
+      "Minibar",
+      "55\" smart TV",
+      "Bathrobes & slippers",
+      "Daily turndown service"
+    ],
+    "foto": "/images/kamar-suite.jpg"
+  },
+  {
+    "slug": "family",
+    "nama": "Family Room",
+    "harga": 2150000,
+    "satuan": "night",
+    "tamu": 4,
+    "luas": 46,
+    "fasilitas": [
+      "Two queen beds",
+      "Stone walls",
+      "Bathtub",
+      "Garden terrace",
+      "Sofa bed",
+      "Air conditioning",
+      "Free Wi-Fi",
+      "50\" smart TV",
+      "Mini fridge",
+      "Kids' amenities",
+      "Connecting room on request"
+    ],
+    "foto": "/images/kamar-family.jpg"
+  }
+]
